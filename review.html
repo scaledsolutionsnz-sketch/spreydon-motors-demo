@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave a Review | Spreydon Motors</title>
+<meta name="description" content="Tell us how we did at Spreydon Motors, Christchurch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ff4d18'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='bold' font-size='18' fill='white' text-anchor='middle'%3ESM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<main class="review-page">
+  <div class="review-box">
+    <span class="eyebrow">Spreydon Motors</span>
+    <h1>How did we do?</h1>
+    <p>Tap a rating below. Your honest feedback helps a small local workshop keep getting better.</p>
+    <div class="stars-pick" id="stars">
+      <button class="star-btn" data-v="1" aria-label="1 star">★</button>
+      <button class="star-btn" data-v="2" aria-label="2 stars">★</button>
+      <button class="star-btn" data-v="3" aria-label="3 stars">★</button>
+      <button class="star-btn" data-v="4" aria-label="4 stars">★</button>
+      <button class="star-btn" data-v="5" aria-label="5 stars">★</button>
+    </div>
+    <p class="review-hint" id="hint">&nbsp;</p>
+    <a href="index.html" class="back-link">← Back to site</a>
+  </div>
+</main>
+
+<script>
+(function () {
+  // 4-5 stars -> public Google review. Replace PLACEHOLDER with the real g.page link.
+  var GOOGLE_REVIEW_URL = "https://g.page/r/PLACEHOLDER/review";
+  var stars = document.querySelectorAll(".star-btn");
+  var hint = document.getElementById("hint");
+
+  stars.forEach(function (btn) {
+    btn.addEventListener("mouseenter", function () { paint(+btn.dataset.v); });
+    btn.addEventListener("focus", function () { paint(+btn.dataset.v); });
+    btn.addEventListener("click", function () {
+      var v = +btn.dataset.v;
+      if (v >= 4) {
+        hint.textContent = "Thanks! Taking you to Google…";
+        window.location.href = GOOGLE_REVIEW_URL;
+      } else {
+        window.location.href = "private.html?rating=" + v;
+      }
+    });
+  });
+  document.getElementById("stars").addEventListener("mouseleave", function () { paint(0); });
+  function paint(n) {
+    stars.forEach(function (b) { b.classList.toggle("lit", +b.dataset.v <= n); });
+    hint.textContent = n >= 4 ? "Great — we'd love a Google review!" : (n > 0 ? "Thanks for the feedback — tell us more." : " ");
+  }
+})();
+</script>
+</body>
+</html>
