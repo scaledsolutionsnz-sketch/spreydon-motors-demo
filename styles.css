@@ -171,6 +171,7 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: flex-end;
   background: var(--ink); color: #fff;
   overflow: hidden;
+  padding-top: 132px;
   padding-bottom: 86px;
 }
 .hero__slides { position: absolute; inset: 0; z-index: 0; }
